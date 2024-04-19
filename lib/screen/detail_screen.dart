@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:aiapp/models/chemical_model.dart';
+import 'package:aiapp/models/all_chemical_model.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
@@ -10,25 +11,18 @@ import '../widgtes/card_widget.dart';
 import 'package:open_file/open_file.dart';
 
 class DetailScreen extends StatelessWidget {
-  DetailScreen({super.key, required this.screenData});
+  DetailScreen({super.key, required this.chemicalData});
 
-  final ChemicalModel screenData;
-  final pdf = pw.Document();
-
-  void _downloadPDF(BuildContext context) async {
-    final ByteData data = await rootBundle.load('assets/Chemical_formula.pdf');
-    final Uint8List bytes = data.buffer.asUint8List();
-    final String base64String = base64Encode(bytes);
-
-    final anchor = html.AnchorElement(
-      href: 'data:application/pdf;base64,$base64String',
-    )
-      ..setAttribute('download', 'your_pdf_file.pdf')
-      ..click();
-  }
+  AllChemicalModel chemicalData;
 
   @override
   Widget build(BuildContext context) {
+    log(chemicalData.commonNames.toString());
+
+    log(chemicalData.scientificName.toString());
+
+    log(chemicalData.file.toString());
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Chemical Details'),
@@ -38,7 +32,7 @@ class DetailScreen extends StatelessWidget {
         label: Row(
           children: [
             Text(
-              'Download Now',
+              'Download Pdf',
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
             SizedBox(
@@ -52,38 +46,26 @@ class DetailScreen extends StatelessWidget {
         ),
         onPressed: () async {
           log('before downloading');
-          _downloadPDF(context);
+
+          final String apiUrl =
+              'https://backend.anusabi.shop/api/v1/pdf/file?fileName=${chemicalData.file}';
+
+          final Dio dio = Dio();
+          try {
+            final response =
+                await dio.download(apiUrl, '/pdfs/${chemicalData.file}.pdf');
+
+            log('Download successful');
+          } catch (error) {
+            log('Failed to download file: $error');
+          }
+
           log('after downloading downloading');
         },
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            CardWidget(
-              title: "Scientific name",
-              des: screenData.scientificName,
-            ),
-            CardWidget(
-              title: "Local Name",
-              des: screenData.commanName,
-            ),
-            CardWidget(
-              title: "Benifits",
-              des: screenData.benifits,
-            ),
-            CardWidget(
-              title: "Medical Uses",
-              des: screenData.mediacalUses,
-            ),
-            CardWidget(
-              title: "Industrial Applications",
-              des: screenData.industrialApplication,
-            ),
-            CardWidget(
-              title: "Materials used",
-              des: screenData.metarials,
-            ),
-          ],
+          children: [],
         ),
       ),
     );

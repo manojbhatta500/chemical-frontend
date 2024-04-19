@@ -1,5 +1,4 @@
 import 'package:aiapp/cubits/all_chemical/all_chemical_cubit.dart';
-import 'package:aiapp/models/chemical_model.dart';
 import 'package:aiapp/screen/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -97,7 +96,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 .trim();
                             print(result);
                             return GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailScreen(
+                                            chemicalData: s.chemicals[index])));
+                              },
                               child: Container(
                                 height: 70,
                                 width: double.infinity,
