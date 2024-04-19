@@ -54,8 +54,8 @@ class AddChemicalState extends State<AddChemicalScreen> {
           ],
         ),
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ChemicalList()));
+          // Navigator.push(
+          //     context, MaterialPageRoute(builder: (context) => ChemicalList()));
         },
       ),
       body: SingleChildScrollView(
