@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:aiapp/models/chemical_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:universal_html/html.dart' as html;
 import '../widgtes/card_widget.dart';
-import '../models/chemical_model.dart';
 import 'package:open_file/open_file.dart';
 
 class DetailScreen extends StatelessWidget {
