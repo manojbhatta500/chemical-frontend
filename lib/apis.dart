@@ -1,4 +1,3 @@
 class Apis {
-  static String baseurl = 'http://localhost:3000';
-  static String totalDataAPi = '${baseurl}/chemical/cname';
+  static String allChemicalApi = 'https://backend.anusabi.shop/api/v1/pdf/';
 }
