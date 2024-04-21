@@ -1,29 +1,30 @@
-import 'dart:developer';
 
 import 'package:aiapp/apis.dart';
-import 'package:aiapp/models/all_chemical_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:open_file/open_file.dart';
+
+import '../models/all_chemical_model.dart';
 
 class AllChemicalRepository {
-  Dio dio = Dio();
-
   final url = Apis.allChemicalApi;
+  final dio = Dio();
 
   Future<Either<int, List<AllChemicalModel>>> fetchAllChemicalData() async {
     try {
-      Response response = await dio.get(url);
+      // huebewwwww oj
+      final response = await dio.get(url);
       print(response.statusCode);
       print(response.data);
       if (response.statusCode == 200) {
-        List<dynamic> responseData = response.data;
-        List<AllChemicalModel> chemicals = responseData
+        var responseData = response.data;
+        List<Map<String, dynamic>> responseDataList =
+            List<Map<String, dynamic>>.from(responseData);
+        List<AllChemicalModel> chemicals = responseDataList
             .map((json) => AllChemicalModel.fromJson(json))
             .toList();
         return Right(chemicals);
       } else {
-        return Left(0);
+        return const Left(0);
       }
     } catch (error) {
       throw Exception('Failed to fetch data: $error');
