@@ -13,29 +13,17 @@ class AllChemicalRepository {
 
   Future<Either<int, List<AllChemicalModel>>> fetchAllChemicalData() async {
     try {
-      // huebewwwww oj
-      final response = await dio.get(
-        url,
-      );
+      final response = await dio.get(url);
       log(response.statusCode.toString());
-      log(response.data);
-      if (response.statusCode == 200) {
-        // var responseData = response.data;
-        // List<Map<String, dynamic>> responseDataList =
-        //     List<Map<String, dynamic>>.from(responseData);
-        // List<AllChemicalModel> chemicals = responseDataList
-        //     .map((json) => AllChemicalModel.fromJson(json))
-        //     .toList();
-        // final List data = jsonDecode(response.data);
-        // List<AllChemicalModel> chemical =
-        //     data.map((e) => AllChemicalModel.fromJson(e)).toList();
+      log(response.data.toString()); // Corrected line
 
-        //************************************ */
-        //final List data = jsonDecode(response.data);
-        final List<dynamic> data = response.data; // Decode JSON string
-        List<AllChemicalModel> chemical =
-            data.map((e) => AllChemicalModel.fromJson(e)).toList();
-        log(chemical.toString());
+      if (response.statusCode == 200) {
+        var responseData = response.data;
+        List<Map<String, dynamic>> responseDataList =
+            List<Map<String, dynamic>>.from(responseData);
+        List<AllChemicalModel> chemical = responseDataList
+            .map((json) => AllChemicalModel.fromJson(json))
+            .toList();
 
         return Right(chemical);
       } else {

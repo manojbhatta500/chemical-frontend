@@ -1,5 +1,6 @@
 import 'package:aiapp/cubits/all_chemical/all_chemical_cubit.dart';
 import 'package:aiapp/screen/detail_screen.dart';
+import 'package:aiapp/screen/search_chemical.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Column(
           children: [
             const SizedBox(
@@ -62,19 +63,39 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 30,
                   ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 10),
+                  //   child: TextField(
+                  //     controller: controller,
+                  //     decoration: InputDecoration(
+                  //       label: const Text(
+                  //         "Search Chemical Formula",
+                  //         style: TextStyle(color: Colors.white),
+                  //       ),
+                  //       border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(
+                  //           8.0,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: TextField(
-                      controller: controller,
-                      decoration: InputDecoration(
-                        label: const Text(
-                          "Search Chemical Formula",
-                          style: TextStyle(color: Colors.white),
-                        ),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: TextFormField(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const SearchChemical()));
+                      },
+                      readOnly: true,
+                      decoration: const InputDecoration(
+                        hintText: "Search Chemical Formula |",
+                        isDense: true,
+                        fillColor: Colors.white,
+                        filled: true,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                            8.0,
-                          ),
+                          borderSide: BorderSide.none,
                         ),
                       ),
                     ),
