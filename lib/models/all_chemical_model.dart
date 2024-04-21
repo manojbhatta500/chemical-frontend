@@ -14,11 +14,11 @@ class AllChemicalModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['commonNames'] = this.commonNames;
-    data['scientificName'] = this.scientificName;
-    data['file'] = this.file;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['commonNames'] = commonNames;
+    data['scientificName'] = scientificName;
+    data['file'] = file;
     return data;
   }
 }

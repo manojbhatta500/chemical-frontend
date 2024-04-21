@@ -51,12 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             .bodyLarge!
                             .copyWith(color: Colors.white, fontSize: 25),
                       ),
-                      const Spacer(),
-                      Image.asset(
-                        "assets/flag.png",
-                        height: 110,
-                        width: 120,
-                      ),
+                      // const Spacer(),
+                      // Image.asset(
+                      //   "assets/flag.png",
+                      //   height: 110,
+                      //   width: 120,
+                      // ),
                     ],
                   ),
                   const SizedBox(
@@ -96,7 +96,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     case AllChemicalSuccess:
                       final s = state as AllChemicalSuccess;
                       return ListView.builder(
-                          itemCount: s.chemicals.length,
+                          itemCount:
+                              s.chemicals.length < 5 ? s.chemicals.length : 5,
                           itemBuilder: (context, int index) {
                             String serverString =
                                 s.chemicals[index].commonNames.toString();
